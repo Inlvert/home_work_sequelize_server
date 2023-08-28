@@ -6,8 +6,6 @@ module.exports.createSuperhuman = async (req, res, next) => {
 
         const superhuman = await Superhuman.create(body);
 
-        console.log(superhuman);
-
         res.status(201).send(superhuman);
 
     } catch (error) {
@@ -15,12 +13,11 @@ module.exports.createSuperhuman = async (req, res, next) => {
     }
 }
 
-module.exports.getSuperhuman = async (req, res , next) => {
+module.exports.getSuperhumans = async (req, res , next) => {
     try {
-        const superhuman = await Superhuman.findAll();
-        console.log(superhuman)
+        const superhumans = await Superhuman.findAll();
+        res.send(superhumans);
 
-        res.send(superhuman);
     } catch (error) {
         next(error);
     }
@@ -31,7 +28,21 @@ module.exports.getSuperhuman = async (req, res, next) => {
         const { params: { superhumanId } } = req;
         const superhuman = await Superhuman.findByPk(superhumanId);
         res.send(superhuman);
-        
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+module.exports.deleteSuperhuman = async (req, res, next) => {
+    try {
+        const { params: { superhumanId } } = req;
+        await Superhuman.destroy ({
+            where: {
+                id: superhumanId
+            }
+        });
+        res.send(superhumanId);
     } catch (error) {
         next(error);
     }
