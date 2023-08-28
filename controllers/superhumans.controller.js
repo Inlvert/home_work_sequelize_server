@@ -14,3 +14,13 @@ module.exports.createSuperhuman = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports.getSuperhuman = async (req, res , next) => {
+    try {
+        const superhuman = await Superhuman.findAll();
+
+        res.send(superhuman);
+    } catch (error) {
+        next(error);
+    }
+}
