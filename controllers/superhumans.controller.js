@@ -8,7 +8,7 @@ module.exports.createSuperhuman = async (req, res, next) => {
 
         console.log(superhuman);
 
-        res.status(201).sent(superhuman);
+        res.status(201).send(superhuman);
 
     } catch (error) {
         next(error);
