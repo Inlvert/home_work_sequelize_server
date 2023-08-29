@@ -1,3 +1,4 @@
+const createHttpError = require('http-errors');
 const { Superhuman } = require ('../models');
 
 module.exports.createSuperhuman = async (req, res, next) => {
@@ -27,6 +28,9 @@ module.exports.getSuperhuman = async (req, res, next) => {
     try {
         const { params: { superhumanId } } = req;
         const superhuman = await Superhuman.findByPk(superhumanId);
+        if(!superhuman) {
+            return next(createHttpError(404, 'not found'));
+        }
         res.send({ data: superhuman });
 
     } catch (error) {
