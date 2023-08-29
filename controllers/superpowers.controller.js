@@ -3,6 +3,8 @@ const { Superpower } = require ('../models');
 
 module.exports.createSuperpower = async (req, res, next) => {
     try {
+
+        // const { superhuman: { id: superhumanId }, body } = req;
         const { superhuman, name } = req;
 
         const superpower = await superhuman.createSuperpower(name)
