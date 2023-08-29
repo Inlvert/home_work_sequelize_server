@@ -6,7 +6,7 @@ module.exports.createSuperhuman = async (req, res, next) => {
 
         const superhuman = await Superhuman.create(body);
 
-        res.status(201).send(superhuman);
+        res.status(201).send({ data: superhuman });
 
     } catch (error) {
         next(error);
@@ -27,7 +27,7 @@ module.exports.getSuperhuman = async (req, res, next) => {
     try {
         const { params: { superhumanId } } = req;
         const superhuman = await Superhuman.findByPk(superhumanId);
-        res.send(superhuman);
+        res.send({ data: superhuman });
 
     } catch (error) {
         next(error);
@@ -42,7 +42,7 @@ module.exports.deleteSuperhuman = async (req, res, next) => {
                 id: superhumanId
             }
         });
-        res.send(superhumanId);
+        res.send({ data: superhumanId });
     } catch (error) {
         next(error);
     }
@@ -62,7 +62,7 @@ module.exports.updateSuperhuman = async (req, res, next) => {
             returning: true
         });
 
-        res.send(superhuman);
+        res.send({ data: superhuman });
     } catch (error) {
         next(error);
     }
