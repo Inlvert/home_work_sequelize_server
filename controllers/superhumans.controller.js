@@ -47,3 +47,23 @@ module.exports.deleteSuperhuman = async (req, res, next) => {
         next(error);
     }
 }
+
+module.exports.updateSuperhuman = async (req, res, next) => {
+    try {
+        const {
+            body,
+            params: { superhumanId }
+        } = req;
+
+        const [updatedRows, [superhuman]] = await Superhuman.update(body, {
+            where: {
+                id: superhumanId
+            },
+            returning: true
+        });
+
+        res.send(superhuman);
+    } catch (error) {
+        next(error);
+    }
+}
