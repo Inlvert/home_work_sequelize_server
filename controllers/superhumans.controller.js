@@ -40,13 +40,14 @@ module.exports.getSuperhuman = async (req, res, next) => {
 
 module.exports.deleteSuperhuman = async (req, res, next) => {
     try {
-        const { params: { superhumanId } } = req;
+        const { superhuman: { id }, superhuman } = req;
         await Superhuman.destroy ({
             where: {
                 id: superhumanId
             }
         });
-        res.send({ data: superhumanId });
+
+        res.send({ data: superhuman });
     } catch (error) {
         next(error);
     }
@@ -65,6 +66,10 @@ module.exports.updateSuperhuman = async (req, res, next) => {
             },
             returning: true
         });
+
+        if(updatedRows !== 1) {
+            return next(createHttpError(404, 'not found'));
+        }
 
         res.send({ data: superhuman });
     } catch (error) {
